@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CARIN Storage Space Calculator</title>
+
+    <link rel="stylesheet" href="font/css/satoshi.css">
+    <link rel="stylesheet" href="style/checkbox.css">
+    <link rel="stylesheet" href="style/slider.css">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="icon" type="image/x-icon" href="img/fav.ico"/>
+    <script src="codec-config.js"></script>
+    <script src="calculator.js"></script>
+</head>
+<body>
+<div id="intro-selector" class="app">
+    <div id="header">
+        <div id="cssc-logo">
+            <img src="img/cssc-logo.png">
+        </div>
+        <div id="main-title">
+            <p class="bold">CARIN</p>
+            <p class="medium">Storage Space Calculator</p>
+        </div>
+        <div id="carin-logo">
+            <img src="img/carin-logo.png">
+        </div>
+    </div>
+    <div id="intro-text" class="margin-main-area">
+        <p><b>CARIN</b>, as an industry-leading call recording suite, provides a flexible solution
+            for our customers by supporting a broad range of recording methods. With its <b>highly
+                advanced media processing techniques</b>, we ensured to <b>minimize</b> the tradeoff between the
+            recording quality and storage space requirement, while also being able to provide a fully
+            tailored solution to our costumers, that can adapt to any problem arising in a wide range
+            of industries.
+        </p>
+        <p class="top-space">
+            Still not convinced enough? Check out our <b>Storage Space Calculator</b> to look at the
+            details!
+        </p>
+        <img src="img/blockquote_orange.webp">
+    </div>
+    <div id="selector" class="padding-main-area">
+        <div id="hint"><i>I am mainly interested in recording ...</i></div>
+        <div id="buttons">
+            <div class="selector-btn" id="audio-sel" onclick="onModeSelect('audio')">Audio Calls</div>
+            <div class="selector-btn" id="video-sel" onclick="onModeSelect('video')">Video Calls</div>
+            <div class="selector-btn" id="tp-sel" onclick="onModeSelect('tp')">Video Conferences</div>
+        </div>
+    </div>
+</div>
+<div id="calculator-content" class="">
+    <div class="app padding-main-area">
+        <div id="input" class="panel reveal"><form id="input-form">
+            <div class="title"><span class="highlight blue">Describe</span> your needs</div>
+            <div class="content">
+                <div id="dsection1" class="section audio video tp">
+                    <div class="inputrow first">
+                        <div class="title2">Numbers of lines</div>
+                        <input type="number" id="if-numoflines" class="if-num required" min="1" value="20">
+                    </div>
+                    <div class="inputrow">
+                        <div class="title2">Total call duration<br>/ workday / workline</div>
+                        <input type="number" id="if-callduration" class="if-num required" min="1" max="24" value="8">
+                    </div>
+                    <div class="inputrow">
+                        <div class="title2">Workdays / a month</div>
+                        <input type="number" id="if-wdspermonth" class="if-num required" min="1" max="31" value="21">
+                    </div>
+                    <div class="inputrow">
+                        <div class="title2">Numbers of months stored</div>
+                        <input type="number" id="if-monthsstored" class="if-num required" min="1" value="20">
+                    </div>
+                </div>
+                <div id="dsection2" class="section audio tp">
+                    <div class="subsection audio">
+                        <div class="title2 center">Codec used on the network</div>
+                        <div class="dropdown" id="in-codec-dd">
+                            <select id="select-in-codec">
+                                <option value="0">G.711 mu/A - law</option>
+                                <option value="1">G.729</option>
+                                <option value="2">G.722</option>
+                                <option value="3">Cisco Wideband</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="subsection tp">
+                        <div class="title2 center">Cisco TelePresence room type</div>
+                        <div class="dropdown" id="tp-type-dd">
+                            <select id="select-tp-room">
+                                <option value="0">CTP 500</option>
+                                <option value="1">CTP 1000</option>
+                                <option value="2">CTP 1300</option>
+                                <option value="3">CTP 3000</option>
+                                <option value="4">CTP 3200</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="subsection audio nobottommargin">
+                        <div class="title2 center">CARIN storage codec</div>
+                        <div class="dropdown" id="out-audio-codec-dd">
+                            <select id="select-audio-out-codec">
+                                <option value="0">PCM 16</option>
+                                <option value="1" selected="selected">PCM 8</option>
+                                <option value="2">MSADPCM</option>
+                                <option value="3">G.711 mu/A - law </option>
+                                <option value="4">Speex</option>
+                                <option value="5">Speex with VAD</option>
+                                <option value="6">GSM FR</option>
+                                <option value="7">DSP Group TrueSpeech</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="subsection tp">
+                        <div class="title2 center">Video resolution</div>
+                        <div class="dropdown" id="resolution-dd">
+                            <select id="select-resolution">
+                                <option value="0">720p</option>
+                                <option value="1">1080p</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="subsection nocenter tp">
+                        <div class="title2 center">Recorded media type</div>
+                        <div class="checkbox-list">
+                            <div class="checkbox-item">
+                                <div class="text-item">Auxiliary Audio</div>
+                                <div class="checkbox">
+                                    <label class="toggler-wrapper style-12">
+                                        <input type="checkbox" id="ch-aux-audio">
+                                        <div class="toggler-slider">
+                                            <div class="toggler-knob"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="checkbox-item">
+                                <div class="text-item">Auxiliary Video</div>
+                                <div class="checkbox">
+                                    <label class="toggler-wrapper style-12">
+                                        <input type="checkbox"  id="ch-aux-video">
+                                        <div class="toggler-slider">
+                                            <div class="toggler-knob"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="dsection3">
+                    <div id="recording-mode" class="section audio">
+                        <div class="title2 center">Recording mode</div>
+                        <div class="radio-btn is-stereo" id="mono-and-stereo">
+                            <div class="radio-item margin-right">
+                                <input type="radio" name="rec-mode" id="recording-mono" checked="checked">
+                                <div class="radio-text">Mono</div>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" name="rec-mode" id="recording-stereo">
+                                <div class="radio-text">Stereo</div>
+                            </div>
+                        </div>
+                        <div class="radio-text center hidden" id="just-mono">Mono</div>
+
+                    </div>
+                    <div id="out-codec-info" class="section video tp">
+                        <div class="subsection">
+                            <div class="title2 center">CARIN storage codec</div>
+                            <div class="dropdown-w-helper">
+                                <div class="dropdown" id="out-codec-dd">
+                                    <select id="select-out-codec">
+                                        <option value="0">CMFX</option>
+                                        <option value="1">WMV</option>
+                                    </select>
+                                </div>
+                                <span class="vid-dd-helper" title="CMFX is a proprietary file format, which contains media data in its original resolution.">i</span>
+                            </div>
+                        </div>
+                        <div id="storage-bw-sec" class="subsection hidden">
+                            <div class="title2 center">Storage bandwidth</div>
+                            <div class="scale" id="codec-bw-sc-out">
+                                <input type='range' min='0' max='5' value='1' step='1' class="n n6" id="storage-bw-slider"/>
+                                <div class="slider-ticks">
+                                    <span><span class="hidden-zero">0</span>384</span>
+                                    <span><span class="hidden-zero">0</span>512</span>
+                                    <span><span class="hidden-zero">0</span>768</span>
+                                    <span>1024</span>
+                                    <span>1500</span>
+                                    <span>2048</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="available-storage" class="section audio video tp">
+                        <div class="title2 center">Total available storage</div>
+                        <div class="inputrow-rev">
+                            <input type="number" id="if-available-storage" class="required" value="2000">
+                            <div class="radio-text">GB</div>
+                        </div>
+                    </div>
+                </div>
+            </div></form>
+        </div>
+        <div id="calculate-btn" class="reveal" onclick="calculate()">Calculate</div>
+        <div id="scroll-here"></div>
+        <div id="output" class="panel reveal long">
+            <div class="title">Here is what <span class="highlight orange">CARIN</span> offers you</div>
+            <div class="content">
+                <div class="osection" id="results">
+                    <div class="result-box">
+                        <div class="title3">1 hour call file size</div>
+                        <div class="box-content">
+                            <div class="margin-bottom"></div>
+                            <div class="big-result"><span class="orange bold countdown" id="res-1h-call-size">337.5</span> <span id="res-1h-call-unit" class="uppercase">MB</span></div>
+                        </div>
+                    </div>
+                    <div class="result-box">
+                        <div class="title3 nolimit">Storage disk space required</div>
+                        <div class="box-content grid">
+                            <div class="box-gr-1"><span class="orange bold countdown" id="res-1day-call-size">2</span> <span id="res-1day-call-unit" class="uppercase">GB</span> </div><div class="box-gr-2"><span class="result-attribute">BY DAY</span></div>
+                            <div class="box-gr-3"><span class="orange bold countdown" id="res-1month-call-size">20</span> <span id="res-1month-call-unit" class="uppercase">GB</span> </div><div class="box-gr-4"><span class="result-attribute">BY MONTH</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="osection" id="extra-codecs">
+                    <div class="title"><span class="highlight blue">Select</span> another codec or <span class="highlight blue">try</span> these specific ones<br>to see what <span class="highlight orange">CARIN</span> is truly capable of!</div>
+                    <div class="arrow long">
+                        <img src="img/arrow-long.png">
+                    </div>
+                    <div id="rec-hq" class="codec-button-grp">
+                        <div class="codec-button" onclick="selectRecommendedCodec('hq')">HIGHEST QUALITY CODEC</div>
+                        <div class="codec-button bg">HIGHEST QUALITY CODEC</div>
+                    </div>
+                    <div id="rec-me" class="codec-button-grp">
+                        <div class="codec-button" onclick="selectRecommendedCodec('me')">MOST EFFICIENT CODEC</div>
+                        <div class="codec-button bg">MOST EFFICIENT CODEC</div>
+                    </div>
+                    <!--<div class="arrow">
+                        <img src="img/arrow.png">
+                    </div>-->
+                </div>
+                <div class="osection" id="total-storage-viz">
+                    <div id="required-st-text" class="st-text">Required<br>space</div>
+                    <div id="required-st-viz" class="viz result-req">
+                        <div class="viz-text">
+                            <div id="result-req-storage" class="amount countdown">198</div>
+                            <div class="metric uppercase" id="result-req-storage-unit">GIGABYTE</div>
+                        </div>
+                    </div>
+                    <div id="conclusion">
+                        <div class="conclusion-text st-text">Sufficient</div> <!-- jcs -->
+                        <img src="img/tick.png" id="danger-or-tick">
+                    </div>
+                    <div id="total-st-viz" class="viz result-tot">
+                        <div class="viz-text">
+                            <div id="result-tot-storage" class="amount countup">465</div>
+                            <div class="metric uppercase" id="result-tot-storage-unit">GIGABYTE</div>
+                        </div>
+                    </div>
+                    <div id="total-st-text" class="st-text">Available<br>space</div>
+                </div>
+
+            </div>
+        </div>
+        <div id="circle-bottom-graphics">
+            <div class="circle-bottom">
+                <div class="st-text nonvis required-st-text-bot">Required<br>space</div>
+                <div class="viz-bot required-st-viz-bot result-req"></div>
+                <div class="nonvis">
+                    <div class="conclusion-text st-text">Sufficient</div> <!-- jcs -->
+                    <img src="img/tick.png" id="danger-or-tick">
+                </div>
+                <div class="viz-bot total-st-viz-bot result-tot"></div>
+                <div class="st-text nonvis total-st-text-bot">Available<br>space</div>
+            </div>
+            <div class="circle-bottom large">
+                <div class="st-text nonvis required-st-text-bot">Required<br>space</div>
+                <div class="viz-bot required-st-viz-bot result-req"></div>
+                <div class="nonvis">
+                    <div class="conclusion-text st-text">Sufficient</div> <!-- jcs -->
+                    <img src="img/tick.png" id="danger-or-tick">
+                </div>
+                <div class="viz-bot total-st-viz-bot result-tot"></div>
+                <div class="st-text nonvis total-st-text-bot">Available<br>space</div>
+            </div>
+        </div>
+
+
+        <!--<div id="footer">© Copyright 2000-2023 TC&C Ltd. All rights reserved.</div>-->
+    </div>
+</div>
+</body>
+</html>
